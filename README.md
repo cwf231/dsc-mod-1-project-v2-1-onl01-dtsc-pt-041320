@@ -1,20 +1,24 @@
-# Final Project Submission
+#### Final Project Submission
 
 Please fill out:
 * Student name: **Claude Fried**
 * Student pace: **Part-time**
-* Scheduled project review date/time: 
+* Scheduled project review date/time: **June 11, 2020**
 * Instructor name: **James Irving**
-* Blog post URL: 
+* Blog post URL: https://cwf231.github.io/template_for_web_scraping_-_beautifulsoup
 
 
 # Intro
 
-*After reading and understanding the project parameters, the the first thing I needed to do was create a list of aspects I wanted to research. Once I had a broad idea of the topics I wanted to cover, I got more specific and thought of some relevant questions to answer. Finally, I began digging into the data provided and scraping for data I thought I would need.*
+***For this project, I was asked to do data analysis of the movie industry for Microsoft's inaugural movie. After researching the movie industry, I needed to determine some actionable insights in order to know what type of films they should be creating.***
+***
+*The first thing I needed to do was create a list of aspects I wanted to research.*
 
-*Occasionally I needed to revise questions or acquire more data.*
+*Once I had a broad idea of the topics I wanted to cover, I got more specific and thought of some relevant questions to answer.*
 
-*Finally, with each question I created a visualization which offered insight into the answer. I then used the visualization's conclusion to help offer an actionable insight.*
+*Finally, I began digging into the data provided and scraping for data I thought I would need. With each question, I created a visualization which offered insight into the answer.*
+
+*I then used the visualization's conclusion to help offer an actionable insight.*
 
 ## Identify POIs.
 > '*Your team is charged with doing data analysis and creating a presentation that explores what type of films are currently doing the best at the box office. You must then translate those findings into actionable insights that the CEO can use when deciding what type of films they should be creating.*'
@@ -85,8 +89,8 @@ def get_df_lst(directory='zippedData/'):
             f'{directory}{filename}', 
             index_col=0, 
             sep=sep, 
-            encoding=encoding
-                        )
+            encoding=encoding,
+            )
             
         print(filename)
         df_lst.append(df)
@@ -252,6 +256,13 @@ class Stopwatch:
             time.sleep(remainder)
 ```
 
+##### Color variable.
+
+
+```python
+PLOTLY_BLUE = '#636efa'
+```
+
 #### Release schedule.
 
 
@@ -320,9 +331,12 @@ def scrape_release_schedule(start_year=2007, end_year=2019):
     df = pd.DataFrame(
         [release_date_lst, movies_lst, distributors_lst, 
          domestic_box_lst, trailers_lst]
-                     ).transpose()
-    df.columns = ['release_date', 'movie', 'distributor', 
-                  'domestic_box_office_to_date', 'trailer']
+        ).transpose()
+    
+    df.columns = [
+        'release_date', 'movie', 'distributor', 
+        'domestic_box_office_to_date', 'trailer'
+    ]
     
     print('Complete.')
     return df
@@ -419,9 +433,12 @@ def scrape_worldwide_box_office_gross(start_year=2007, end_year=2019):
     df = pd.DataFrame(
         [ranks_lst, movies_lst, worldwide_lst, domestic_lst,
         international_lst, domestic_share_lst]
-                     ).transpose()
-    df.columns = ['rank', 'movie', 'worldwide_gross', 
-                  'domestic_gross', 'international_gross', 'domestic_share']
+        ).transpose()
+    
+    df.columns = [
+        'rank', 'movie', 'worldwide_gross', 'domestic_gross', 
+        'international_gross', 'domestic_share'
+    ]
     
     print('Complete.')
     return df
@@ -505,12 +522,15 @@ def scrape_budget_and_gross():
         stopwatch.total_time_to_elapse(3)
          
                 
-    df = pd.DataFrame(
-        [rank_lst, release_date_lst, movies_lst, 
-         budgets_lst, domestic_gross_lst, worldwide_gross_lst]
-                     ).transpose()
-    df.columns = ['rank', 'release_date', 'movie', 'budget', 
-                  'domestic_gross', 'worldwide_gross']
+    df = pd.DataFrame([
+        rank_lst, release_date_lst, movies_lst, 
+        budgets_lst, domestic_gross_lst, worldwide_gross_lst
+    ]).transpose()
+    
+    df.columns = [
+        'rank', 'release_date', 'movie', 'budget', 
+        'domestic_gross', 'worldwide_gross'
+    ]
     
     print('Complete.')
     return df
@@ -543,13 +563,187 @@ else:
 
 
 ```python
+movie_info_imdb_df.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>primary_title</th>
+      <th>original_title</th>
+      <th>start_year</th>
+      <th>runtime_minutes</th>
+      <th>genres</th>
+    </tr>
+    <tr>
+      <th>tconst</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>tt0063540</th>
+      <td>Sunghursh</td>
+      <td>Sunghursh</td>
+      <td>2013</td>
+      <td>175.0</td>
+      <td>Action,Crime,Drama</td>
+    </tr>
+    <tr>
+      <th>tt0066787</th>
+      <td>One Day Before the Rainy Season</td>
+      <td>Ashad Ka Ek Din</td>
+      <td>2019</td>
+      <td>114.0</td>
+      <td>Biography,Drama</td>
+    </tr>
+    <tr>
+      <th>tt0069049</th>
+      <td>The Other Side of the Wind</td>
+      <td>The Other Side of the Wind</td>
+      <td>2018</td>
+      <td>122.0</td>
+      <td>Drama</td>
+    </tr>
+    <tr>
+      <th>tt0069204</th>
+      <td>Sabse Bada Sukh</td>
+      <td>Sabse Bada Sukh</td>
+      <td>2018</td>
+      <td>NaN</td>
+      <td>Comedy,Drama</td>
+    </tr>
+    <tr>
+      <th>tt0100275</th>
+      <td>The Wandering Soap Opera</td>
+      <td>La Telenovela Errante</td>
+      <td>2017</td>
+      <td>80.0</td>
+      <td>Comedy,Drama,Fantasy</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+budget_and_gross_df.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rank</th>
+      <th>release_date</th>
+      <th>movie</th>
+      <th>budget</th>
+      <th>domestic_gross</th>
+      <th>worldwide_gross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2019-04-23</td>
+      <td>Avengers: Endgame</td>
+      <td>400000000</td>
+      <td>858373000</td>
+      <td>2797800564</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>2011-05-20</td>
+      <td>Pirates of the Caribbean: On Stranger Tides</td>
+      <td>379000000</td>
+      <td>241063875</td>
+      <td>1045663875</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>2015-04-22</td>
+      <td>Avengers: Age of Ultron</td>
+      <td>365000000</td>
+      <td>459005868</td>
+      <td>1396099202</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>2015-12-16</td>
+      <td>Star Wars Ep. VII: The Force Awakens</td>
+      <td>306000000</td>
+      <td>936662225</td>
+      <td>2068223624</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>2018-04-25</td>
+      <td>Avengers: Infinity War</td>
+      <td>300000000</td>
+      <td>678815482</td>
+      <td>2048359754</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
 # Create relevant df.
 genres_df = pd.merge(
     movie_info_imdb_df,
     budget_and_gross_df,
     left_on='original_title',
-    right_on='movie'
-)[['movie', 'budget', 'worldwide_gross', 'genres']].dropna()
+    right_on='movie',
+    )[['movie', 'budget', 'worldwide_gross', 'genres']].dropna()
 genres_df.head()
 ```
 
@@ -717,7 +911,7 @@ genres_df[genres_df['movie'] == 'On the Road']
 
 ```python
 # Isolate duplicated titles.
-duplicated = genres_df[genres_df.duplicated('movie')]
+duplicated = genres_df[genres_df.duplicated('movie', keep=False)]
 
 
 # Compile genres for all movies with the same title.
@@ -750,8 +944,11 @@ genres_df['num_subgenres'] = genres_df['genres'].map(lambda x: len(x))
 ```python
 # Drop duplicate entries for movies titles.
 genres_df.drop_duplicates(
-    'movie', keep='first', ignore_index=True, inplace=True
-                         )
+    'movie', 
+    keep='first', 
+    ignore_index=True, 
+    inplace=True,
+    )
 ```
 
 * Gather the cumlative profit based on genre subcategories.
@@ -773,9 +970,8 @@ tot_prof_dct = {}
 for index, row in genres_df.iterrows():
     # Iterate over the list of sub-genres.
     for genre in row['genres']:
-        tot_prof_dct[genre] = tot_prof_dct.get(genre, 0) + (
-            row['profit'] / len(row['genres'])
-                                                           )
+        split_profit = row['profit'] / len(row['genres'])
+        tot_prof_dct[genre] = tot_prof_dct.get(genre, 0) + split_profit
 ```
 
 
@@ -785,12 +981,29 @@ avg_profit_per_genre_dct = {}
 for genre in genre_freq_dct.keys():
     avg_profit_per_genre_dct[genre] = round(
         tot_prof_dct[genre] / genre_freq_dct[genre], 2
-    )
+        )
 
 avg_profit_per_genre = pd.Series(
                             avg_profit_per_genre_dct
-                                ).sort_values()
+                            ).sort_values()
 ```
+
+
+```python
+avg_profit_per_genre.head()
+```
+
+
+
+
+    Reality-TV      -71428.57
+    News           2594347.27
+    Western        8775418.53
+    Sport          9519688.98
+    History       10013821.80
+    dtype: float64
+
+
 
 - Visualizations
 
@@ -803,10 +1016,13 @@ genre_fig = make_subplots(
     shared_yaxes=True, 
     horizontal_spacing=0.01,
     subplot_titles=(
-        'Average Profit',
-        'Profit Distribution'
-                   )
-                         )
+        '<b>Average Profit</b>',
+        '<b>Profit Distribution</b>'
+        )
+    )
+
+for i in genre_fig['layout']['annotations']:
+    i['font'] = dict(family='Ariel', size=20)
 ```
 
 
@@ -817,8 +1033,9 @@ genre_fig.add_trace(
         x=avg_profit_per_genre,
         y=avg_profit_per_genre.index, 
         orientation='h',
-        name='Average Profit'
-    ),
+        name='Average Profit',
+        marker_color=(['grey'] * 20) + ([PLOTLY_BLUE] * 3)
+        ),
     row=1, col=1
 );
 ```
@@ -827,16 +1044,18 @@ genre_fig.add_trace(
 ```python
 # Add Boxplot of profit distribution for each movie in the sample using 
 # list comprehension.
+top_3_genres = ['Animation', 'Adventure', 'Sci-Fi']
+
 [genre_fig.add_trace(
     go.Box(
-        x=genres_df['profit'][genres_df['genres'].map(
-            lambda genre_lst: genre in genre_lst
-        )],
+        x=genres_df['profit'][
+            genres_df['genres'].map(lambda genre_lst: genre in genre_lst)
+        ],
         name=genre,
-        marker_color = '#1f77b4'
-    ),
+        marker_color= PLOTLY_BLUE if genre in top_3_genres else 'grey'
+        ),
     row=1, col=2
-) for genre in avg_profit_per_genre.keys()]
+    ) for genre in avg_profit_per_genre.keys()]
 
 genre_fig.update_traces(boxpoints=False, row=1, col=2);
 ```
@@ -845,16 +1064,26 @@ genre_fig.update_traces(boxpoints=False, row=1, col=2);
 ```python
 # Layout.
 genre_fig.update_layout(
+    width=900,
     height=800,
     showlegend=False,
-    title={
-        'text': "The Effect of Movie Genre on Profit",
-        'y':0.94,
-        'x':0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'
-    }
-);
+    title=dict(
+        text="<b><i>The Effect of Movie Genre on Profit</i></b>",
+        font=dict(family='Ariel', size=32),
+        y=0.96,
+        x=0.5,
+        xanchor='center',
+        yanchor='top'
+        ),
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)' # Setting figure background to transparent.
+)
+
+genre_fig.update_yaxes(tickfont=dict(family='Ariel', size=20))
+genre_fig.update_xaxes(tickfont=dict(family='Ariel', size=20))
+
+# Dollar formatting
+genre_fig.layout.xaxis['tickformat'] = '$s';
 ```
 
 #### *Genre: Figure*
@@ -863,8 +1092,8 @@ genre_fig.update_layout(
 ```python
 # Uploading figures to plotly chart-studio.
 
-# genre_fig.write_image('figs/genre_fig.png')
-# link = py.plot(genre_fig, filename='genre_fig', auto_open=False)
+genre_fig.write_image('figs/genre_fig.png')
+# py.plot(genre_fig, filename='genre_fig', auto_open=False)
 ```
 
 
@@ -872,10 +1101,7 @@ genre_fig.update_layout(
 # genre_fig
 ```
 
-<div>
-    <a href="https://plotly.com/~cwf231/17/?share_key=XHGakEa0hb8V78CaHUO9UN" target="_blank" title="genre_fig" style="display: block; text-align: center;"><img src="https://plotly.com/~cwf231/17.png?share_key=XHGakEa0hb8V78CaHUO9UN" alt="genre_fig" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-    <script data-plotly="cwf231:17" sharekey-plotly="XHGakEa0hb8V78CaHUO9UN" src="https://plotly.com/embed.js" async></script>
-</div>
+<img src='figs/genre_fig.png'>
 
 ### Genre: Conclusion
 
@@ -919,13 +1145,13 @@ def scrape_ratings_and_populatiry():
         
         all_movies = movie_container.findAll(
             'div', class_='lister-item-content'
-                                            )
+            )
 
         for movie in all_movies:
             # Clean data / insert np.nan when info or containers are not found.
             title = movie.find(
                 'h3', class_='lister-item-header'
-                              ).find('a').text
+                ).find('a').text
             
             cert = movie.find('span', class_='certificate')
             if not cert:
@@ -953,7 +1179,7 @@ def scrape_ratings_and_populatiry():
             if stars_container:
                 stars_line = stars_container.find(
                     'div', class_='inline-block ratings-imdb-rating'
-                                              )
+                    )
                 if stars_line:
                     stars = stars_line.get('data-value', np.nan)
                 else:
@@ -970,7 +1196,7 @@ def scrape_ratings_and_populatiry():
         # Find the next url and update url.
         next_url_container = soup.find(
             'a', class_='lister-page-next next-page'
-                                      )
+            )
         if not next_url_container:
             break
         next_url = next_url_container['href']
@@ -983,7 +1209,8 @@ def scrape_ratings_and_populatiry():
 
     df = pd.DataFrame(
         [title_lst, rating_lst, gross_lst, votes_lst, stars_lst]
-                     ).transpose()
+        ).transpose()
+    
     df.columns = ['title', 'rating', 'gross', 'votes', 'stars']
     return df
 ```
@@ -995,12 +1222,12 @@ if 'ratings_and_popularity_df.csv' in os.listdir('scraped_data/'):
     ratings_and_popularity_df = pd.read_csv(
         'scraped_data/ratings_and_popularity_df.csv', 
         index_col=0
-    )
+        )
 else:
     ratings_and_popularity_df = scrape_ratings_and_populatiry()
     ratings_and_popularity_df.to_csv(
         'scraped_data/ratings_and_popularity_df.csv'
-                                    )
+        )
 ```
 
 ## Q2:
@@ -1089,11 +1316,11 @@ ratings_and_popularity_df.head()
 
 ```python
 # Filter to the four main movie ratings. Set on a copy.
+ratings_lst = ['G', 'PG', 'PG-13', 'R']
 filtered_df = ratings_and_popularity_df[
-    ratings_and_popularity_df['rating'].map(
-        lambda x: x in ('G', 'PG', 'PG-13', 'R')
-                                           )
-                                       ].copy()
+    ratings_and_popularity_df['rating'].map(lambda x: x in ratings_lst)
+].copy()
+
 filtered_df.sort_values('rating', inplace=True)
 ```
 
@@ -1110,19 +1337,36 @@ rating_popularity_fig = px.box(
         'stars': 'Stars',
         'rating': 'Rating',
         'title': 'Title'
-    }
-                              )
+    })
 
 rating_popularity_fig.update_layout(
-    title={
-        'text': "Quality of Movies",
-        'y': .94,
-        'x': .5,
-        'xanchor': 'center',
-        'yanchor': 'top'},
-    xaxis={'title': 'Rating'},
-    yaxis={'title': '"Stars" (IMDB)'}
+    width=600,
+    height=500,
+    title=dict(
+        text="<b><i>Quality of Movies</i></b>",
+        font=dict(family='Ariel', size=32),
+        y=.96,
+        x=.5,
+        xanchor='center',
+        yanchor='top'),
+    xaxis=dict(
+        title=dict(text='Rating', font=dict(size=18))
+        ),
+    yaxis=dict(
+        title=dict(text='"Stars" (IMDB)', font=dict(size=18))
+        ),
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)' # Setting figure background to transparent.
                  );
+
+# rating_popularity_fig.update_xaxes(
+#     title=dict(font=dict(size=18)),
+#     tickfont=dict(family='Ariel', size=24)
+#     )
+# rating_popularity_fig.update_yaxes(
+#     title=dict(font=dict(size=18)),
+#     tickfont=dict(family='Ariel')
+#     );
 ```
 
 #### *Rating: Figure I - Quality*
@@ -1131,10 +1375,10 @@ rating_popularity_fig.update_layout(
 ```python
 # Uploading figures to plotly chart-studio.
 
-# rating_popularity_fig.write_image('figs/rating_popularity_fig.png')
+rating_popularity_fig.write_image('figs/rating_popularity_fig.png')
 # py.plot(
 #     rating_popularity_fig, filename='rating_popularity_fig', auto_open=False
-#        )
+#     )
 ```
 
 
@@ -1142,11 +1386,7 @@ rating_popularity_fig.update_layout(
 # rating_popularity_fig
 ```
 
-<div>
-    <a href="https://plotly.com/~cwf231/20/?share_key=PbycK0s25X9fXGilR2XNzL" target="_blank" title="rating_popularity_fig" style="display: block; text-align: center;"><img src="https://plotly.com/~cwf231/20.png?share_key=PbycK0s25X9fXGilR2XNzL" alt="rating_popularity_fig" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-    <script data-plotly="cwf231:20" sharekey-plotly="PbycK0s25X9fXGilR2XNzL" src="https://plotly.com/embed.js" async></script>
-</div>
-
+<img src='figs/rating_popularity_fig.png'>
 
 * *A movie's rating does not impact the quality of a movie.*
 * *There does seem to be more outliers (both positive and negative) the more mature the movie is rated.*
@@ -1238,43 +1478,52 @@ filtered_df.head()
 
 ```python
 # Plot all movies' box office gross grouped by rating.
-movie_gross_fig = px.scatter(
-    filtered_df, 
-    x='stars', 
+
+total_gross = filtered_df.groupby('rating').sum()
+total_gross.reset_index(inplace=True)
+
+movie_gross_fig = px.bar(
+    total_gross, 
+    x='rating',
     y='gross', 
-    color='rating', 
-    facet_col='rating',
-    opacity=0.4,
-    hover_name='title',
     labels={
         'gross': 'Worldwide Gross',
         'stars': 'Stars (IMDB)',
         'rating': 'Rating'
            }
-                          )
+    )
 
 # Update layout.
 movie_gross_fig.update_layout(
-    title={
-        'text': "Movie Gross and Star Rating",
-        'y': .97,
-        'x': .5,
-        'xanchor': 'center',
-        'yanchor': 'top'}
-                 )
-
-movie_gross_fig.for_each_annotation(
-    lambda a: a.update(text=a.text.split('=')[-1])
-                                   );
+    width=600,
+    height=500,
+    title=dict(
+        text="<b><i>Cumulative Gross by Rating</i></b>",
+        font=dict(family='Ariel', size=32),
+        y=.97,
+        x=.5,
+        xanchor='center',
+        yanchor='top'),
+    xaxis=dict(
+        title=dict(font=dict(size=18)),
+        tickfont=dict(family='Ariel', size=24)
+        ),
+    yaxis=dict(
+        title=dict(font=dict(size=18)),
+        tickfont=dict(family='Ariel', size=24)
+        ),
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)' # Setting figure background to transparent.
+    );
 ```
 
-#### *Rating Figure II - Quality & Gross*
+#### *Rating: Figure II - Quality & Gross*
 
 
 ```python
 # Uploading figures to plotly chart-studio.
 
-# movie_gross_fig.write_image('figs/movie_gross_fig.png')
+movie_gross_fig.write_image('figs/movie_gross_fig.png')
 # py.plot(movie_gross_fig, filename='movie_gross_fig', auto_open=False)
 ```
 
@@ -1283,11 +1532,7 @@ movie_gross_fig.for_each_annotation(
 # movie_gross_fig
 ```
 
-<div>
-    <a href="https://plotly.com/~cwf231/22/?share_key=gBl9lA2xZg3paiqHVCfaLy" target="_blank" title="movie_gross_fig" style="display: block; text-align: center;"><img src="https://plotly.com/~cwf231/22.png?share_key=gBl9lA2xZg3paiqHVCfaLy" alt="movie_gross_fig" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-    <script data-plotly="cwf231:22" sharekey-plotly="gBl9lA2xZg3paiqHVCfaLy" src="https://plotly.com/embed.js" async></script>
-</div>
-
+<img src='figs/movie_gross_fig.png'>
 
 * *The movies that tend to have the highest worldwide gross are rated PG and PG-13, probably due to the fact that those movies are more accessible by a wider audience.*
 
@@ -1386,24 +1631,50 @@ gross_num_fig = px.scatter(
         'gross': 'Average Gross',
         'rating': 'Rating'
     }
-                          )
+    )
 
 
 # Update layout.
 gross_num_fig.update_layout(
-    title={
-        'text': "Average Gross / Number of Movies Produced",
-        'y': .94,
-        'x': .5,
-        'xanchor': 'center',
-        'yanchor': 'top'},
-    xaxis={'title': 'Number of Movies Produced'},
-    yaxis={'title': 'Average Gross'}
-                 )
+    width=900,
+    height=600,
+    title=dict(
+        text="<b><i>Average Gross / Number of Movies Produced<i></b>",
+        font=dict(family='Ariel', size=32),
+        y=.98,
+        x=.5,
+        xanchor='center',
+        yanchor='top'
+        ),
+    xaxis=dict(
+        title=dict(
+            text='Movie Count',
+            font=dict(
+                size=24,
+                family='Ariel'
+                )
+            ),
+        tickfont=dict(family='Ariel', size=24)
+        ),
+    yaxis=dict(
+        title=dict(
+            text='Average Gross',
+            font=dict(
+                size=24,
+                family='Ariel'
+                )
+            ),
+        tickfont=dict(family='Ariel', size=24)
+        ),
+#     plot_bgcolor='rgb(231,237,247)',
+    paper_bgcolor='rgba(0,0,0,0)' # Setting figure background to transparent.
+    )
 
 gross_num_fig.update_traces(
     textposition='top center', marker={'size':40}
-                 );
+    )
+
+gross_num_fig.layout.yaxis['tickformat'] = '$s';
 ```
 
 #### *Rating: Figure III - Gross & Count*
@@ -1412,7 +1683,7 @@ gross_num_fig.update_traces(
 ```python
 # Uploading figures to plotly chart-studio.
 
-# gross_num_fig.write_image('figs/gross_num_fig.png')
+gross_num_fig.write_image('figs/gross_num_fig.png')
 # py.plot(gross_num_fig, filename='gross_num_fig', auto_open=False)
 ```
 
@@ -1421,11 +1692,7 @@ gross_num_fig.update_traces(
 # gross_num_fig
 ```
 
-<div>
-    <a href="https://plotly.com/~cwf231/24/?share_key=cCLXGbRMmxRoWJ16wKO2Jl" target="_blank" title="gross_num_fig" style="display: block; text-align: center;"><img src="https://plotly.com/~cwf231/24.png?share_key=cCLXGbRMmxRoWJ16wKO2Jl" alt="gross_num_fig" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-    <script data-plotly="cwf231:24" sharekey-plotly="cCLXGbRMmxRoWJ16wKO2Jl" src="https://plotly.com/embed.js" async></script>
-</div>
-
+<img src='figs/gross_num_fig.png'>
 
 ### Rating: Conclusion
 
@@ -1451,14 +1718,14 @@ people_master_lst = pd.merge(
     people_jobs_df, 
     left_index=True, 
     right_on='nconst'
-                            )
+    )
 
 people_titles_df = pd.merge(
     movie_info_imdb_df, 
     people_master_lst, 
     left_index=True, 
     right_index=True
-                           )
+    )
 
 
 # Merge movie titles to get movie gross info.
@@ -1467,7 +1734,7 @@ people_titles_gross = pd.merge(
     worldwide_box_df, 
     left_on='original_title', 
     right_on='movie'
-                              )
+    )
 
 
 # Group by name, person_id so the grain is one row per person.
@@ -1475,9 +1742,7 @@ people_titles_gross.drop_duplicates(inplace=True)
 
 people_total_gross = people_titles_gross[
     ['primary_name', 'nconst', 'worldwide_gross']
-                                        ].groupby(
-    ['primary_name', 'nconst']
-                                                 ).sum()
+].groupby(['primary_name', 'nconst']).sum()
 
 people_total_gross.head()
 ```
@@ -1550,7 +1815,7 @@ Figure out how many movies each person has been in.
 ```python
 movie_counts = people_titles_gross[
     ['primary_name', 'nconst', 'primary_title']
-                                  ].groupby(['primary_name', 'nconst']).count()
+].groupby(['primary_name', 'nconst']).count()
 ```
 
 
@@ -1558,7 +1823,7 @@ movie_counts = people_titles_gross[
 # Get top 50 based on total gross.
 top_50_people = people_total_gross.sort_values(
     'worldwide_gross', ascending=False
-                                              ).head(50)
+    ).head(50)
 top_50_people.reset_index(inplace=True)
 ```
 
@@ -1618,13 +1883,11 @@ top_50_full = pd.merge(
     top_50_people, 
     left_on='nconst', 
     right_on='nconst'
-                        )
-
+    )
 
 # Cleanup columns.
-top_50_full.columns = [
-    'person_id', 'num_movies', 'name', 'total_gross'
-]
+top_50_full.columns = ['person_id', 'num_movies', 'name', 'total_gross']
+top_50_full.sort_values('total_gross', ascending=False, inplace=True)
 top_50_full.head()
 ```
 
@@ -1657,39 +1920,39 @@ top_50_full.head()
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>nm0004266</td>
-      <td>12</td>
-      <td>Anne Hathaway</td>
-      <td>5055674654</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>nm0751577</td>
-      <td>5</td>
-      <td>Anthony Russo</td>
-      <td>6753860201</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>nm0177896</td>
+      <th>44</th>
+      <td>nm0498278</td>
       <td>14</td>
-      <td>Bradley Cooper</td>
-      <td>4120794689</td>
+      <td>Stan Lee</td>
+      <td>13886338853</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>nm0397171</td>
-      <td>7</td>
-      <td>Bryce Dallas Howard</td>
-      <td>3543179032</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>nm0000949</td>
+      <th>18</th>
+      <td>nm0456158</td>
       <td>11</td>
-      <td>Cate Blanchett</td>
-      <td>4248157534</td>
+      <td>Jack Kirby</td>
+      <td>11985342300</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>nm0000375</td>
+      <td>11</td>
+      <td>Robert Downey Jr.</td>
+      <td>11282272170</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>nm0262635</td>
+      <td>12</td>
+      <td>Chris Evans</td>
+      <td>10485180356</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>nm1165110</td>
+      <td>15</td>
+      <td>Chris Hemsworth</td>
+      <td>9253463153</td>
     </tr>
   </tbody>
 </table>
@@ -1719,21 +1982,23 @@ personnel_fig = go.FigureWidget(
         'x': top_50_full['num_movies'],
         'y': top_50_full['total_gross'],
         'mode': 'markers'
-          }]
-                               )
+    }]
+    )
 ```
 
 
 ```python
 # Personnel_fig layout.
 personnel_fig.update_layout(
-    title='Top 50 Movie Personalities (since 2014)',
-    title_x=0.5,
-    xaxis={'title':'Number of Movies'},
-    yaxis={'title': 'Total Gross of Movies'},
+    width=650,
     height=550,
-    width=650
-                           );
+    title='<b><i>Top 50 Movie Personalities (since 2014)</i></b>',
+    title_x=0.5,
+    xaxis=dict(title='Number of Movies'),
+    yaxis=dict(title='Total Gross of Movies'),
+    font=dict(size=18, family='Ariel'),
+    paper_bgcolor='rgba(0,0,0,0)', # Setting figure background to transparent.
+    );
 ```
 
 
@@ -1753,13 +2018,30 @@ scatter.x = scatter.x + (np.random.rand(len(scatter.x)) - 0.5)
 scatter.marker.line={'width': 2, 'color': 'DarkSlateGrey'}
 ```
 
+
+```python
+# Add annotations for presentation image.
+for i in range(6):
+    personnel_fig.add_annotation(
+        x=personnel_fig.data[0].x[i],
+        y=personnel_fig.data[0].y[i],
+        text=personnel_fig.data[0].text[i],
+        
+        xref="x",
+        yref="y",
+        showarrow=True,
+        ax=-80,
+        ay=0
+    )
+```
+
 #### *Personnel: Figure*
 
 
 ```python
 # Uploading figures to plotly chart-studio.
 
-# personnel_fig.write_image('figs/personnel_fig.png')
+personnel_fig.write_image('figs/personnel_fig.png')
 # py.plot(personnel_fig, filename='personnel_fig', auto_open=False)
 ```
 
@@ -1768,11 +2050,7 @@ scatter.marker.line={'width': 2, 'color': 'DarkSlateGrey'}
 # personnel_fig
 ```
 
-<div>
-    <a href="https://plotly.com/~cwf231/26/?share_key=MVFFIKqsFjGpvsLxe5oLyd" target="_blank" title="personnel_fig" style="display: block; text-align: center;"><img src="https://plotly.com/~cwf231/26.png?share_key=MVFFIKqsFjGpvsLxe5oLyd" alt="personnel_fig" style="max-width: 100%;width: 650px;"  width="650" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-    <script data-plotly="cwf231:26" sharekey-plotly="MVFFIKqsFjGpvsLxe5oLyd" src="https://plotly.com/embed.js" async></script>
-</div>
-
+<img src='figs/personnel_fig.png'>
 
 ### Personnel: Conclusion
 
@@ -1787,6 +2065,10 @@ scatter.marker.line={'width': 2, 'color': 'DarkSlateGrey'}
 ***
 #### Create more interactive ipywidget-based graph.
 
+*Inspired from Jon Mease presentation:*
+
+* *https://github.com/jonmmease/plotly_ipywidget_notebooks*
+
 
 ```python
 # Create widgets.
@@ -1799,7 +2081,7 @@ details_widget = HTML()
 image_widget = Image(
     value=image_data['nm0695435'],
     layout=Layout(height='300px', width='200px')
-                    )
+    )
 ```
 
 
@@ -1825,11 +2107,10 @@ scatter.on_hover(hover_function)
 
 ```python
 # Create an container for the interactive widgets.
-personnel_container = HBox(
-    [personnel_fig, VBox(
-        [image_widget, details_widget]
-                        )]
-                          )
+personnel_container = HBox([
+    personnel_fig, 
+    VBox([image_widget, details_widget])
+])
 ```
 
 #### *Personnel: Bonus - Widgets*
@@ -1856,7 +2137,7 @@ personnel_container
 # Convert the release_date to datetime.
 budget_and_gross_df['release_date'] = pd.to_datetime(
     budget_and_gross_df['release_date']
-                                                    )
+    )
 budget_and_gross_df.dropna(inplace=True)
 ```
 
@@ -1981,52 +2262,169 @@ budget_and_gross_df.head()
 
 
 ```python
-release_fig = px.scatter(
-    budget_and_gross_df, 
-    x='budget', 
+month_df = budget_and_gross_df.groupby(['month','month_name']).mean()
+month_df.reset_index(inplace=True)
+
+month_df.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month</th>
+      <th>month_name</th>
+      <th>rank</th>
+      <th>budget</th>
+      <th>domestic_gross</th>
+      <th>worldwide_gross</th>
+      <th>year</th>
+      <th>day</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>January</td>
+      <td>3304.723861</td>
+      <td>2.231435e+07</td>
+      <td>2.567455e+07</td>
+      <td>4.959768e+07</td>
+      <td>2004.445040</td>
+      <td>16.091153</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>February</td>
+      <td>3016.908434</td>
+      <td>2.782816e+07</td>
+      <td>3.591067e+07</td>
+      <td>7.473683e+07</td>
+      <td>2005.125301</td>
+      <td>14.183133</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>March</td>
+      <td>3078.864407</td>
+      <td>2.982978e+07</td>
+      <td>3.736292e+07</td>
+      <td>7.740303e+07</td>
+      <td>2005.627119</td>
+      <td>15.902542</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>April</td>
+      <td>3247.970276</td>
+      <td>2.745700e+07</td>
+      <td>3.401645e+07</td>
+      <td>7.886696e+07</td>
+      <td>2005.220807</td>
+      <td>15.367304</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>May</td>
+      <td>2840.177725</td>
+      <td>4.412129e+07</td>
+      <td>6.258990e+07</td>
+      <td>1.516733e+08</td>
+      <td>2003.931280</td>
+      <td>16.130332</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+release_fig = px.bar(
+    month_df, 
+    x='month_name', 
     y='worldwide_gross', 
-    trendline='ols',
-    opacity=0.5,
-    hover_name='movie',
-    facet_col='month_name',
-    facet_col_wrap=3,
-    height=750,
     labels={
         'year': 'Year',
-        'worldwide_gross': 'Gross',
-        'budget': 'Budget'
+        'worldwide_gross': 'Total Gross',
+        'budget': 'Budget',
+        'month_name': 'Release Month'
            }
-                        )
+    )
 
 
 # Update latout
 release_fig.update_layout(
-    title={
-        'text': "Worldwide Gross vs Budget by Release Month",
-        'y': .98,
-        'x': .5,
-        'xanchor': 'center',
-        'yanchor': 'top'},
-                 )
+    width=900,
+    height=600,
+    title=dict(
+        text="<b><i>Average Revenue by Release Month</i></b>",
+        font=dict(family='Ariel', size=32),
+        y=.98,
+        x=.5,
+        xanchor='center',
+        yanchor='top'
+        ),
+    xaxis=dict(
+        title=dict(
+            text='Release Month',
+            font=dict(
+                size=24,
+                family='Ariel'
+                )
+            ),
+        tickfont=dict(family='Ariel', size=16)
+        ),
+    yaxis=dict(
+        title=dict(
+            text='Average Gross',
+            font=dict(
+                size=24,
+                family='Ariel'
+                )
+            ),
+        tickfont=dict(family='Ariel', size=16)
+        ),
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)' # Setting figure background to transparent.
+    )
 
+release_fig.layout.yaxis['tickformat'] = '$s'
 
-# Format 'Month=January' labels.
-release_fig.for_each_annotation(lambda x: x.update(text=x.text.split('=')[-1]));
+colors = ['grey']*4 + [PLOTLY_BLUE]*3 + ['grey']*3 + [PLOTLY_BLUE]*2
+release_fig.data[0].marker.color = colors
 ```
 
-    C:\Users\claud\anaconda3\envs\learn-env\lib\site-packages\statsmodels\tools\_testing.py:19: FutureWarning:
-    
-    pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-    
-    
-
-#### *Release Date: Figure*
+### *Release Date: Figure*
 
 
 ```python
 # Uploading figures to plotly chart-studio.
 
-# release_fig.write_image('figs/release_fig.png')
+release_fig.write_image('figs/release_fig.png')
 # py.plot(release_fig, filename='release_fig', auto_open=False)
 ```
 
@@ -2035,24 +2433,19 @@ release_fig.for_each_annotation(lambda x: x.update(text=x.text.split('=')[-1]));
 # release_fig
 ```
 
-<div>
-    <a href="https://plotly.com/~cwf231/28/?share_key=aGtqP0PuZQLSk30sOHWi7D" target="_blank" title="release_fig" style="display: block; text-align: center;"><img src="https://plotly.com/~cwf231/28.png?share_key=aGtqP0PuZQLSk30sOHWi7D" alt="release_fig" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-    <script data-plotly="cwf231:28" sharekey-plotly="aGtqP0PuZQLSk30sOHWi7D" src="https://plotly.com/embed.js" async></script>
-</div>
-
+<img src='figs/release_fig.png'>
 
 ### Release Date: Conclusion
 
-* *Movies with the highest budgets have historically been released in **April, May, and December**.*
+* *There is a significant correlation between the month a movie is released and its gross. Movies released in **May, June, July** and **November, December** have substantially higher average gross'.*
 
-
-* *Months to particularly avoid releasing movies would be **January**, **August**, and **September**.*
+* *I would recommend releasing the movie at the start of summer (**May or June**).*
 
 # Expenses
 
 ## Q6:
 
-### What is the 'optimal' budget to return the highest profit?
+### What budget needs to be invested in order to expect a certain profit?
 
 
 ```python
@@ -2162,7 +2555,12 @@ for col in columns:
 # Reformat date column.
 budget_gross_df['release_date'] = pd.to_datetime(
     budget_gross_df['release_date']
-                                                )
+    )
+
+
+# Movies with 0 worldwide_gross are likely NaN values. 
+# Remove these rows.
+budget_gross_df = budget_gross_df[budget_gross_df['worldwide_gross'] != 0]
 ```
 
 
@@ -2174,7 +2572,7 @@ budget_gross_df['profit'] = prof
 roi = budget_gross_df['profit'] / budget_gross_df['production_budget']
 budget_gross_df['roi'] = round(roi * 100, 2)
 
-budget_gross_df.sort_values('roi', inplace=True)
+budget_gross_df.sort_values('movie', inplace=True)
 budget_gross_df.head()
 ```
 
@@ -2220,60 +2618,252 @@ budget_gross_df.head()
   </thead>
   <tbody>
     <tr>
-      <th>13</th>
-      <td>2012-12-31</td>
-      <td>Hayride</td>
-      <td>60000</td>
-      <td>0</td>
-      <td>0</td>
-      <td>-60000</td>
-      <td>-100.0</td>
-    </tr>
-    <tr>
-      <th>52</th>
-      <td>2015-12-01</td>
-      <td>Dutch Kills</td>
-      <td>25000</td>
-      <td>0</td>
-      <td>0</td>
-      <td>-25000</td>
-      <td>-100.0</td>
+      <th>55</th>
+      <td>2009-07-17</td>
+      <td>(500) Days of Summer</td>
+      <td>7500000</td>
+      <td>32425665</td>
+      <td>34439060</td>
+      <td>26939060</td>
+      <td>359.19</td>
     </tr>
     <tr>
       <th>54</th>
-      <td>2014-12-31</td>
-      <td>Dry Spell</td>
-      <td>22000</td>
-      <td>0</td>
-      <td>0</td>
-      <td>-22000</td>
-      <td>-100.0</td>
+      <td>2016-03-11</td>
+      <td>10 Cloverfield Lane</td>
+      <td>5000000</td>
+      <td>72082999</td>
+      <td>108286422</td>
+      <td>103286422</td>
+      <td>2065.73</td>
     </tr>
     <tr>
-      <th>55</th>
-      <td>2016-03-08</td>
-      <td>Out of the Inferno</td>
-      <td>19000000</td>
-      <td>0</td>
-      <td>0</td>
-      <td>-19000000</td>
-      <td>-100.0</td>
+      <th>48</th>
+      <td>2015-11-11</td>
+      <td>10 Days in a Madhouse</td>
+      <td>12000000</td>
+      <td>14616</td>
+      <td>14616</td>
+      <td>-11985384</td>
+      <td>-99.88</td>
     </tr>
     <tr>
-      <th>19</th>
-      <td>2015-02-10</td>
-      <td>Fear Clinic</td>
-      <td>1000000</td>
-      <td>0</td>
-      <td>0</td>
-      <td>-1000000</td>
-      <td>-100.0</td>
+      <th>63</th>
+      <td>1999-03-31</td>
+      <td>10 Things I Hate About You</td>
+      <td>13000000</td>
+      <td>38177966</td>
+      <td>60413950</td>
+      <td>47413950</td>
+      <td>364.72</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>2008-03-07</td>
+      <td>10,000 B.C.</td>
+      <td>105000000</td>
+      <td>94784201</td>
+      <td>269065678</td>
+      <td>164065678</td>
+      <td>156.25</td>
     </tr>
   </tbody>
 </table>
 </div>
 
 
+
+
+```python
+# Write a function to return a plotting function.
+def plot_percent_above_median(pd_Dataframe, 
+                              col_x, 
+                              col_y, 
+                              increment=None, 
+                              min_bin_size=None,
+                              start_at_min=False,
+                              comparison='median',
+                              comparison_label='Median'
+                             ):
+    """
+    Returns a plotly bar chart.
+    Takes two pandas.Dataframe and an increment (integer) of steps.
+    
+    col_x: The x-axis series which will be broken up into bins.
+    col_y: The y-axis series which will compare the x against its median.
+    ----------------------------------------------------------
+    Loops through the Series from the min to the max in steps of the increment.
+    Querys the Series and returns what percent of each range is above or equal 
+    to the median and what percent is below the median.
+    """
+    
+    # Format x-values into dollar strings.
+    def format_int_string(integer, abbv=''):
+        if abbv.upper() == 'M':
+            onemill = 1000000
+            return f'${str(round(integer/onemill))}M'
+            
+        lst = list(str(integer))
+        for i in range((len(lst)-1)//3, 0, -1):
+            lst.insert(-3*i, ',')
+        new_str = ''.join(lst)
+        return f'${new_str}'
+    
+    # Check inputs.
+    if type(pd_Dataframe) != pd.DataFrame:
+        return 'Error: Must pass a pandas Series.'
+    if not col_x in pd_Dataframe.columns or not col_y in pd_Dataframe.columns:
+        return 'Error: Invalid column names.'
+    
+    # Set variables.
+    if start_at_min:
+        start = pd_Dataframe[col_x].min()
+    else:
+        start = 0
+    stop = pd_Dataframe[col_x].max()
+    
+    if increment:
+        steps = np.arange(start, stop+increment, increment)
+    else:
+        steps = np.linspace(start, stop+1, 100)
+        
+    steps = np.round(steps)
+    steps = [int(x) for x in steps]
+        
+    if len(steps) > 100:
+        return 'Error: Too many steps. Please choose a larger increment.'
+    
+    if comparison == 'median':
+        comparison = pd_Dataframe[col_y].median()
+    
+    # Get plotting values.
+    x_vals = []
+    y_vals = []
+    
+    for i in range(len(steps)-1):
+        lower_step = steps[i]
+        higher_step = steps[i+1]
+        
+        # y-values.
+        greater_than_comp = len(pd_Dataframe.loc[
+            (pd_Dataframe[col_y] >= comparison) & (
+                (pd_Dataframe[col_x] >= lower_step) & 
+                (pd_Dataframe[col_x] < higher_step)
+                )
+            ])
+
+        less_than_comp = len(pd_Dataframe.loc[
+            (pd_Dataframe[col_y] < comparison) & (
+                (pd_Dataframe[col_x] >= lower_step) & 
+                (pd_Dataframe[col_x] < higher_step)
+                )
+            ])
+
+        total_entries = greater_than_comp + less_than_comp
+        if total_entries == 0:
+            continue
+        if min_bin_size and total_entries < min_bin_size:
+                continue
+        
+        percent_greater = round(greater_than_comp / total_entries, 2)
+        percent_less = round(less_than_comp / total_entries, 2)
+        y_vals += [percent_greater, percent_less*-1]
+        
+        # x-values.
+        low_str = format_int_string(lower_step, 'M')
+        high_str = format_int_string(higher_step, 'M')
+        x_vals += [f'{low_str} - {high_str}'] * 2
+    
+    
+    # Create plotly figure.
+    data = go.Bar(dict(
+        x=x_vals,
+        y=y_vals,
+        marker_color=[PLOTLY_BLUE, '#ff3333']*(len(x_vals)//2)
+        )
+    )
+    
+    yname = pd_Dataframe[col_y].name.title()
+    xname = pd_Dataframe[col_x].name.title()
+    
+    layout = go.Layout(dict(
+        width=900,
+        height=600,
+        title=dict(
+            text=f'<b><i>{yname} over {comparison_label} by {xname}</i></b>',
+            font=dict(family='Ariel', size=32),
+            y=.98,
+            x=.5,
+            xanchor='center',
+            yanchor='top'
+            ),
+        xaxis=dict(
+            title=dict(
+                text=f'{xname.title()} (min {min_bin_size} entries)',
+                font=dict(
+                    size=24,
+                    family='Ariel'
+                    )
+                ),
+            tickfont=dict(family='Ariel', size=12)
+            ),
+        yaxis=dict(
+            title=dict(
+                text=f'Percent Over {comparison_label.title()}',
+                font=dict(
+                    size=24,
+                    family='Ariel'
+                    )
+                ),
+            tickfont=dict(family='Ariel', size=12),
+            gridcolor=PLOTLY_BLUE
+            ),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)' # Figure background to transparent.
+        )
+    )
+    
+    return go.Figure(data=data, layout=layout)
+```
+
+#### *Expenses: Figure  I - Percent Above a Certain Amount* 
+
+
+```python
+onemill = 1000000
+
+percent_above_fig = plot_percent_above_median(
+    budget_gross_df, 
+    col_x='production_budget',
+    col_y='profit',
+    increment=onemill*5,
+    min_bin_size=5,
+    comparison=onemill*100,
+    comparison_label='$100M'
+    )
+```
+
+
+```python
+percent_above_fig.write_image('figs/percent_profit_over.png')
+```
+
+
+```python
+# percent_above_fig
+```
+
+<img src='figs/percent_profit_over.png'>
+
+* *Given the goal to profit at least \\$100M, the risk decreases substantially the higher the budget is.*
+
+* *To increase the odds of returning a \\$100M+ profit, we would need to have a production budget of at least \\$100M.*
+
+> *If the budget is lower, we take on much more risk of not retuning a high profit.*
+
+## Q7:
+
+### Is there a relationship between budget and Return on Investment (ROI)?
 
 
 ```python
@@ -2285,8 +2875,7 @@ roi_budget_log = px.scatter(
     color='profit',
     color_continuous_scale=[
         'blue', 'green', 'yellow', 'orange', 'red', 'black'
-                           ],
-    trendline='lowess', 
+                            ],
     opacity=0.8,
     hover_name='movie',
     labels={
@@ -2296,30 +2885,32 @@ roi_budget_log = px.scatter(
         'profit': 'Profit',
         'domestic_gross': 'Domestic Gross'
            }
-                           )
+    )
 
 
 #Update layout.
 roi_budget_log.update_layout(
-    title={
-        'text': "ROI vs Budget",
-        'y': .93,
-        'x': .5,
-        'xanchor': 'center',
-        'yanchor': 'top'
-          }
-                            )
+    title=dict(
+        text="ROI vs Budget",
+        y=.93,
+        x=.5,
+        xanchor='center',
+        yanchor='top'
+        ),
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)' # Setting figure to transparent.
+    )
 
 roi_budget_log.update_yaxes(type="log");
 ```
 
-#### *Expenses: Figure* 
+#### *Expenses: Figure  II - ROI* 
 
 
 ```python
 # Uploading figures to plotly chart-studio.
 
-# roi_budget_log.write_image('figs/roi_budget_log.png')
+roi_budget_log.write_image('figs/roi_budget_log.png')
 # py.plot(roi_budget_log, filename='roi_budget_log', auto_open=False)
 ```
 
@@ -2328,11 +2919,7 @@ roi_budget_log.update_yaxes(type="log");
 # roi_budget_log
 ```
 
-<div>
-    <a href="https://plotly.com/~cwf231/30/?share_key=sRaAXgrexVfeVhmrYxKwBZ" target="_blank" title="roi_budget_log" style="display: block; text-align: center;"><img src="https://plotly.com/~cwf231/30.png?share_key=sRaAXgrexVfeVhmrYxKwBZ" alt="roi_budget_log" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plotly.com/404.png';" /></a>
-    <script data-plotly="cwf231:30" sharekey-plotly="sRaAXgrexVfeVhmrYxKwBZ" src="https://plotly.com/embed.js" async></script>
-</div>
-
+<img src='figs/roi_budget_log.png'>
 
 * *With low-budget movies, there are some extraordinary outliers with massive ROI.*
 
@@ -2354,8 +2941,8 @@ roi_budget_log.update_yaxes(type="log");
 * *Movies with higher budgets are expected to earn more profits.*
 
 
-* *Movies with small budgets (< \\$100M) are very likely to profit less than \\$500M.*
-* *Movies with large budgets(>\\$100M) are expected to have higher ROIs and have a greater likelihood of having a large profit (approx. \\$500M).*
+* *Movies with small budgets (< \\$100M) are very likely to return large profits.*
+* *Movies with large budgets(>\\$100M) are expected to have higher ROIs and have a greater likelihood of having a large profit.*
 
 * *I would therefore recommend setting a budget at or above \\$100M.*
 
@@ -2363,11 +2950,19 @@ roi_budget_log.update_yaxes(type="log");
 
 *There are some very clear insights which can be drawn from the successful movies of the past.*
 
-* *First, certain genres seem to have much more success than others. Movies with **Animation** as a sub-genre are averaging the highest average profit, followed by **Adventure** and **Sci-Fi**. I would recommend that the movie we produce have these three sub-genres.*
-* *Most certainly, the movie should be rated **PG-13 or PG**, but not R. R-rated movies, while created at the highest volume, are by far not as profitable as the less mature rated movies.*
-* *There are some actors / producers / writers who are associated with a large volume of movie gross. There may be a correlation between these people and the success of the movies they are a part of, but the research in personnel showed much more evidence of the effect of a successful **franchise**. For example, movies associated with Stan Lee (lead writer of Marvel comics) have totaled almost \\$14B.*
+1. *First, certain genres seem to have much more success than others. Movies with **Animation** as a sub-genre are averaging the highest average profit, followed by **Adventure** and **Sci-Fi**. I would recommend that the movie we produce have these three sub-genres.*
+
+
+2. *Most certainly, the movie should be rated **PG-13 or PG**, but not R. R-rated movies, while created at the highest volume, are by far not as profitable as the less mature rated movies.*
+
+
+3. *There are some actors / producers / writers who are associated with a large volume of movie gross. There may be a correlation between these people and the success of the movies they are a part of, but the research in personnel showed much more evidence of the effect of a successful **franchise**. For example, movies associated with Stan Lee (lead writer of Marvel comics) have totaled almost \\$14B.*
 > *There are two directions which make sense.* 
 > 1. *Seek out the **talent** of the successful writers and actors of the Marvel series to lead the project creatively.*
-> 2. *Model a **new franchise**on the tremendously successful Marvel series (ie: find an action/sci-fi subject which can be made into a series of movies over the course of several years).*
-* *I would recommend releasing the movie in **April**, as there is a very strong and positive correlation between budget and profit during this month.*
-* *Finally, I would recommend for Microsoft to throw it's weight around financially regarding budget. The ROI for movies with a budget below \\$18M is completely hit-or-miss, but almost never returns a very large profit. My recommendation is to invest in a large budget - at least **\\$100M**. Doing this would maximize the likelihood of not only a high ROI, but a high overall profit.*
+> 2. *Model a **new franchise** on the tremendously successful Marvel series (ie: find an action/sci-fi subject which can be made into a series of movies over the course of several years).*
+
+
+4. *I would recommend releasing the movie in **the early Summer months** (May, June, or July) because these months have historically returned the highest revenue.*
+
+
+5. *Finally, I would recommend for Microsoft to throw it's weight around financially regarding budget. My recommendation is to invest in a large budget - at least **\\$100M**. Doing this would maximize the likelihood of not only a high ROI, but a high overall profit.*
